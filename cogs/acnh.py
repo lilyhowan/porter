@@ -6,27 +6,19 @@ class ACNH(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    '''@commands.Cog.listener()
-    async def on_message(self, message):
-        if self.bot.user.mentioned_in(message):
-            if "test" in message.content:
-                response = urllib.request.urlopen("http://acnhapi.com/v1/fish/60")
-                fish_data = json.loads(response.read())
-                await message.channel.send(fish_data["file-name"])
-        await self.bot.process_commands(message)'''
-
-    @commands.command(name="birthday2", help="Returns specified villager's birthday")
-    async def speak(self, ctx, villager):
+    @commands.command(name="birthday", help="Returns specified villager's birthday")
+    async def birthday(self, ctx, villager):
         response = urllib.request.urlopen(f"http://acnhapi.com/v1/villagers/")
         birthday_data = json.loads(response.read())
-        await ctx.send(birthday_data)
-        #await ctx.send(f"{birthday_data['name']['name-USen']}'s birthday is on {birthday_data['birthday-string']} ({birthday_data['birthday']}).")
+        villager = villager.capitalize()
 
-    @commands.command(name="birthday", help="Returns specified villager's birthday")
-    async def speak(self, ctx, villager):
-        response = urllib.request.urlopen(f"http://acnhapi.com/v1/villagers/{villager}")
-        birthday_data = json.loads(response.read())
-        await ctx.send(f"{birthday_data['name']['name-USen']}'s birthday is on {birthday_data['birthday-string']} ({birthday_data['birthday']}).")
+        for i in birthday_data:
+            if villager in birthday_data[i]["name"].values():
+                villager_id = birthday_data[i]["id"]
+        
+        response = urllib.request.urlopen(f"http://acnhapi.com/v1/villagers/{villager_id}")
+        villager_data = json.loads(response.read())
+        await ctx.send(f"{villager_data['name']['name-USen']}'s birthday is on {villager_data['birthday-string']} ({villager_data['birthday']}).")
 
 def setup(bot):
     bot.add_cog(ACNH(bot))
