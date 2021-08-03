@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import json, urllib.request
 
-class ACNH(commands.Cog):
+class Villager(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -19,9 +19,9 @@ class ACNH(commands.Cog):
                     break
             response = urllib.request.urlopen(f"http://acnhapi.com/v1/villagers/{villager_id}")
             villager_data = json.loads(response.read())
-            await ctx.send(f"{villager_data['name']['name-USen']}'s birthday is on {villager_data['birthday-string']} ({villager_data['birthday']}).")
+            await ctx.send(f"{villager_data['name']['name-USen']}'s birthday is on {villager_data['birthday-string']}.")
         except:
             await ctx.send("Specified villager could not be found.")
 
 def setup(bot):
-    bot.add_cog(ACNH(bot))
+    bot.add_cog(Villager(bot))
