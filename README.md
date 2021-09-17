@@ -9,7 +9,7 @@ Utilises the [ACNH RESTful API](http://acnhapi.com/)
 
 ## Commands
 
-Prefix for all commands is p!
+Prefix for all commands is `p!`
 
 * `p!fish {fish_name}`: Get information about the specified fish
 * `p!bug {bug_name}`: Get information about the specified bug
