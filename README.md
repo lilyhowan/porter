@@ -3,8 +3,6 @@
 ## Description
 Discord bot for Animal Crossing: New Horizons
 
-![Porter Output](https://i.imgur.com/CTOacEV.png)
-
 Utilises the [ACNH RESTful API](http://acnhapi.com/)
 
 ## Commands
