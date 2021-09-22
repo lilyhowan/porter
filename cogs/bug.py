@@ -1,22 +1,25 @@
+import json
+import requests
 import discord
+
 from discord.ext import commands
-import json, requests
+from assets.creatures import creature_rarity
+
 
 class Bug(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.bug_data = requests.get("https://acnhapi.com/v1/bugs/").json()
 
-    @commands.command(name="bug", help="Returns information on specified fish")
+    @commands.command(name="bug", help="Returns information about the specified bug")
     async def bug(self, ctx, *, bug_name):
-        creature_rarity = {'Common': '★', 'Uncommon': '★★', 'Rare': '★★★', 'Ultra-rare': '★★★★'}
-
         # convert all characters to lowercase and replace whitespace in string with underscore to match JSON data
         bug_name = bug_name.lower().replace(' ', '_')
         bug = self.bug_data[bug_name]
         availability = bug['availability']
 
-        embed=discord.Embed(title=bug['name']['name-USen'].title(), description=f"\"{bug['museum-phrase']}\"")
+        embed = discord.Embed(
+            title=bug['name']['name-USen'].title(), description=f"\"{bug['museum-phrase']}\"")
         embed.set_thumbnail(url='http://acnhapi.com/v1/icons/bugs/' + bug_name)
 
         embed.add_field(name='Details',
@@ -35,6 +38,7 @@ class Bug(commands.Cog):
                         inline=True)
 
         await ctx.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(Bug(bot))
