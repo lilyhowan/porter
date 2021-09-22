@@ -1,23 +1,25 @@
+import json
+import requests
 import discord
+
 from discord.ext import commands
-import json, requests
+from assets.creatures import creature_rarity
+
 
 class Fish(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.fish_data = requests.get('https://acnhapi.com/v1/fish/').json()
 
-   
-    @commands.command(name='fish', help='Returns information on specified fish')
+    @commands.command(name='fish', help='Returns information about the specified fish')
     async def fish(self, ctx, *, fish_name):
-        creature_rarity = {'Common': '★', 'Uncommon': '★★', 'Rare': '★★★', 'Ultra-rare': '★★★★'}
-
         # convert all characters to lowercase and replace whitespace in string with underscore to match JSON data
         fish_name = fish_name.lower().replace(' ', '_')
         fish = self.fish_data[fish_name]
         availability = fish['availability']
-        
-        embed=discord.Embed(title=fish['name']['name-USen'].title(), description=f"\"{fish['museum-phrase']}\"")
+
+        embed = discord.Embed(
+            title=fish['name']['name-USen'].title(), description=f"\"{fish['museum-phrase']}\"")
         embed.set_thumbnail(url='http://acnhapi.com/v1/icons/fish/' + fish_name)
 
         embed.add_field(name='Details',
