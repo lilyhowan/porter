@@ -16,28 +16,28 @@ class Fish(commands.Cog):
         fish_name = fish_name.lower().replace(' ', '_')
 
         # fetch fish data using specified fish_name
-        fish = requests.get('https://acnhapi.com/v1/fish/').json()[fish_name]
-        availability = fish['availability']
+        fish = requests.get(f'https://acnhapi.com/v1/fish/{fish_name}').json()
+        availability = fish["availability"]
 
         embed = discord.Embed(
-            title=fish['name']['name-USen'].title(),
-            description=f"\"{fish['museum-phrase']}\"")
-        embed.set_thumbnail(url='http://acnhapi.com/v1/icons/fish/' + fish_name)
+            title=fish["name"]["name-USen"].title(),
+            description=f'{fish["museum-phrase"]}')
+        embed.set_thumbnail(url=f'http://acnhapi.com/v1/icons/fish/{fish_name}')
 
         embed.add_field(name='Details',
-                        value=f"**Nook's Price**: {fish['price']} bells\n "
-                        f"**CJ's Price**: {fish['price-cj']} bells\n "
-                        f"**Rarity**: {creature_rarity[availability['rarity']]}",
+                        value=f'**Nook\'s Price**: {fish["price"]} bells\n '
+                        f'**CJ\'s Price**: {fish["price-cj"]} bells\n '
+                        f'**Rarity**: {creature_rarity[availability["rarity"]]}',
                         inline=True)
-        embed.set_footer(text=f"\"{fish['catch-phrase']}\"")
+        embed.set_footer(text=f'{fish["catch-phrase"]}')
 
         if availability['isAllDay']:
-            availability['time'] = 'All day'
+            availability["time"] = 'All day'
 
         embed.add_field(name='Availability',
-                        value=f"**Time**: {availability['time']}\n "
-                        f"**Location**: {availability['location']}\n "
-                        f"**Shadow**: {fish['shadow']}",
+                        value=f'**Time**: {availability["time"]}\n '
+                        f'**Location**: {availability["location"]}\n '
+                        f'**Shadow**: {fish["shadow"]}',
                         inline=True)
 
         await ctx.send(embed=embed)
