@@ -9,13 +9,14 @@ from assets.creatures import creature_rarity
 class Bug(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.bug_data = requests.get("https://acnhapi.com/v1/bugs/").json()
 
     @commands.command(name="bug", help="Returns information about the specified bug")
     async def bug(self, ctx, *, bug_name):
         # convert all characters to lowercase and replace whitespace in string with underscore to match JSON data
         bug_name = bug_name.lower().replace(' ', '_')
-        bug = self.bug_data[bug_name]
+
+        # fetch bug data using specified bug_name
+        bug = requests.get(f'https://acnhapi.com/v1/bugs/{bug_name}').json()
         availability = bug['availability']
 
         embed = discord.Embed(
