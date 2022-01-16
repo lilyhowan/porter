@@ -20,7 +20,7 @@ class Bug(commands.Cog):
         availability = bug["availability"]
 
         embed = discord.Embed(
-            title=bug["name"]["name-USen"].title(), description=f'{bug["museum-phrase"]}')
+            title=bug["name"]["name-USen"].title(), description=f'"{bug["museum-phrase"]}"')
         embed.set_thumbnail(url=f'http://acnhapi.com/v1/icons/bugs/{bug_name}')
 
         embed.add_field(name='Details',
@@ -28,15 +28,15 @@ class Bug(commands.Cog):
                         f'**Flick\'s Price**: {bug["price-flick"]} bells\n '
                         f'**Rarity**: {creature_rarity[availability["rarity"]]}',
                         inline=True)
-        embed.set_footer(text=f'{bug["catch-phrase"]}')
 
         if availability["isAllDay"]:
             availability["time"] = "All day"
-
         embed.add_field(name='Availability',
                         value=f'**Time**: {availability["time"]}\n '
                         f'**Location**: {availability["location"]}\n',
                         inline=True)
+
+        embed.set_footer(text=f'"{bug["catch-phrase"]}"')
 
         await ctx.send(embed=embed)
 

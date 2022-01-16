@@ -21,7 +21,7 @@ class Fish(commands.Cog):
 
         embed = discord.Embed(
             title=fish["name"]["name-USen"].title(),
-            description=f'{fish["museum-phrase"]}')
+            description=f'"{fish["museum-phrase"]}"')
         embed.set_thumbnail(url=f'http://acnhapi.com/v1/icons/fish/{fish_name}')
 
         embed.add_field(name='Details',
@@ -29,16 +29,16 @@ class Fish(commands.Cog):
                         f'**CJ\'s Price**: {fish["price-cj"]} bells\n '
                         f'**Rarity**: {creature_rarity[availability["rarity"]]}',
                         inline=True)
-        embed.set_footer(text=f'{fish["catch-phrase"]}')
-
+        
         if availability['isAllDay']:
             availability["time"] = 'All day'
-
         embed.add_field(name='Availability',
                         value=f'**Time**: {availability["time"]}\n '
                         f'**Location**: {availability["location"]}\n '
                         f'**Shadow**: {fish["shadow"]}',
                         inline=True)
+
+        embed.set_footer(text=f'"{fish["catch-phrase"]}"')
 
         await ctx.send(embed=embed)
 
