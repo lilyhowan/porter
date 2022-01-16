@@ -21,8 +21,7 @@ class Fish(commands.Cog):
 
         embed = discord.Embed(
             title=fish["name"]["name-USen"].title(),
-            description=f'"{fish["museum-phrase"]}"')
-        embed.set_thumbnail(url=f'http://acnhapi.com/v1/icons/fish/{fish_name}')
+            description=f'"{fish["museum-phrase"]}"') 
 
         embed.add_field(name='Details',
                         value=f'**Nook\'s Price**: {fish["price"]} bells\n '
@@ -38,6 +37,7 @@ class Fish(commands.Cog):
                         f'**Shadow**: {fish["shadow"]}',
                         inline=True)
 
+        embed.set_thumbnail(url=fish["icon_uri"])
         embed.set_footer(text=f'"{fish["catch-phrase"]}"')
 
         await ctx.send(embed=embed)

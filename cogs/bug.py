@@ -21,7 +21,6 @@ class Bug(commands.Cog):
 
         embed = discord.Embed(
             title=bug["name"]["name-USen"].title(), description=f'"{bug["museum-phrase"]}"')
-        embed.set_thumbnail(url=f'http://acnhapi.com/v1/icons/bugs/{bug_name}')
 
         embed.add_field(name='Details',
                         value=f'**Nook\'s Price**: {bug["price"]} bells\n '
@@ -36,6 +35,7 @@ class Bug(commands.Cog):
                         f'**Location**: {availability["location"]}\n',
                         inline=True)
 
+        embed.set_thumbnail(url=bug["icon_uri"])
         embed.set_footer(text=f'"{bug["catch-phrase"]}"')
 
         await ctx.send(embed=embed)

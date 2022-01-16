@@ -21,8 +21,10 @@ class Villager(commands.Cog):
 
         embed = discord.Embed(
             title=villager["name"]["name-USen"].title(),
-            description=villager["catch-phrase"])
-        embed.set_thumbnail(url=f'http://acnhapi.com/v1/icons/villagers/{villager_filename}')
+            description=f'{villager["personality"]} {villager["species"]} ({villager["gender"]})')
+        embed.set_thumbnail(url=villager["icon_uri"])
+        embed.set_footer(text=f'"{villager["catch-phrase"]}"')
+
 
         await ctx.send(embed=embed)
 
