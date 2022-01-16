@@ -40,6 +40,13 @@ class Bug(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    @bug.error
+    async def bug_error(self, ctx, error):
+        if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send('A bug name is required.')
+        else:
+            await ctx.send('Bug not found.')
+
 
 def setup(bot):
     bot.add_cog(Bug(bot))

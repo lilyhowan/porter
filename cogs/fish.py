@@ -42,6 +42,12 @@ class Fish(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    @fish.error
+    async def fish_error(self, ctx, error):
+        if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send('A fish name is required.')
+        else:
+            await ctx.send('Fish not found.')
 
 def setup(bot):
     bot.add_cog(Fish(bot))
