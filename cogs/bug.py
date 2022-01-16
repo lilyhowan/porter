@@ -17,26 +17,26 @@ class Bug(commands.Cog):
 
         # fetch bug data using specified bug_name
         bug = requests.get(f'https://acnhapi.com/v1/bugs/{bug_name}').json()
-        availability = bug['availability']
+        availability = bug["availability"]
 
         embed = discord.Embed(
-            title=bug['name']['name-USen'].title(), description=f"\"{bug['museum-phrase']}\"")
-        embed.set_thumbnail(url='http://acnhapi.com/v1/icons/bugs/' + bug_name)
+            title=bug["name"]["name-USen"].title(), description=f'"{bug["museum-phrase"]}"')
 
         embed.add_field(name='Details',
-                        value=f"**Nook's Price**: {bug['price']} bells\n "
-                        f"**Flick's Price**: {bug['price-flick']} bells\n"
-                        f"**Rarity**: {creature_rarity[availability['rarity']]}",
+                        value=f'**Nook\'s Price**: {bug["price"]} bells\n '
+                        f'**Flick\'s Price**: {bug["price-flick"]} bells\n '
+                        f'**Rarity**: {creature_rarity[availability["rarity"]]}',
                         inline=True)
-        embed.set_footer(text=f"\"{bug['catch-phrase']}\"")
 
-        if availability['isAllDay']:
-            availability['time'] = 'All day'
-
+        if availability["isAllDay"]:
+            availability["time"] = "All day"
         embed.add_field(name='Availability',
-                        value=f"**Time**: {availability['time']}\n "
-                        f"**Location**: {availability['location']}\n",
+                        value=f'**Time**: {availability["time"]}\n '
+                        f'**Location**: {availability["location"]}\n',
                         inline=True)
+
+        embed.set_thumbnail(url=bug["icon_uri"])
+        embed.set_footer(text=f'"{bug["catch-phrase"]}"')
 
         await ctx.send(embed=embed)
 

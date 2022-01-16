@@ -11,6 +11,7 @@ Prefix for all commands is `p!`
 
 * `p!fish {fish_name}`: Get information about the specified fish
 * `p!bug {bug_name}`: Get information about the specified bug
+* `p!villager {villager_name}`: Get information about the specified villager
 
 
 ## Installation
